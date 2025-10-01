@@ -24,9 +24,9 @@ SUBPKG_1_FW = firmware (>= 14.0), firmware (<< 26.0)
 
 ifeq ($(SWIFT_VERSION_COMPUTED),)
 export SWIFT_VERSION_COMPUTED := 1
-export IS_OSS_SWIFT := $(shell swiftc --version 2>/dev/null | grep -q swiftlang || echo 1)
+export IS_OSS_SWIFT := $(shell $(TARGET_SWIFTC) --version 2>/dev/null | grep -q swiftlang || echo 1)
 ifeq ($(IS_OSS_SWIFT),)
-export APPLE_SWIFT_VERSION := $(shell swiftc --version 2>/dev/null | cut -d' ' -f4)
+export APPLE_SWIFT_VERSION := $(shell $(TARGET_SWIFTC) --version 2>/dev/null | cut -d' ' -f4)
 endif
 endif
 
