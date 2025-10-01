@@ -51,6 +51,11 @@ before-package::
 		-e 's/\$${SUBPKG_FW}/$(SUBPKG_$(SUBPKG)_FW)/g' \
 		-e 's/\$${PKG_VERSION}/$(_THEOS_INTERNAL_PACKAGE_VERSION)/g' \
 		$(THEOS_STAGING_DIR)/DEBIAN/control$(ECHO_END)
+ifeq ($(SUBPKG),0)
+	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/lib$(ECHO_END)
+	$(ECHO_NOTHING)mv $(THEOS_STAGING_DIR)/Library/Frameworks/Orion.framework $(THEOS_STAGING_DIR)/usr/lib/Orion.framework$(ECHO_END)
+	$(ECHO_NOTHING)ln -s /usr/lib/Orion.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Orion.framework$(ECHO_END)
+endif
 
 internal-stage::
 	$(ECHO_NOTHING)mkdir -p $(THEOS_PACKAGE_DIR)$(ECHO_END)
